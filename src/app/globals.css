@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.vertical-range-input {
+  
+  writing-mode: bt-lr; /* IE */
+  width: 8px;
+  height: 100px;
+  margin: 0 10px;
+}
+
