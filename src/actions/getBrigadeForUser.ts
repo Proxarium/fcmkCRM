@@ -58,7 +58,7 @@ export async function getBrigadeForUser(): Promise<Brigade | null> {
   if (brigade) {
     console.log("Brigade data fetched:", brigade);
   } else {
-    console.log("No active brigade found for the user");
+    console.log(`Пользователь, без бригады ${userId}`);
   }
   revalidatePath("/");
 

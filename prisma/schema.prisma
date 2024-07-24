@@ -26,10 +26,7 @@ model User {
   medicalkits  MedicalKit[]  @relation(name: "MedicalKitToUser")
   ambulances   Ambulance[]   @relation(name: "AmbulanceToUser")
   statebrigades StateBrigade[] @relation(name: "UserToStateBrigade")
-  recipe Recipe[]
-  
-  
-  
+  deductions   DeductedMedication[]         
 
 }
 
@@ -43,6 +40,8 @@ model MedicalKit {
   statebrigades StateBrigade[] @relation(name: "MedicalKitToStateBrigade")
   equipment     EquipmentMedicalKit[]
   
+  deductions   DeductedMedication[]
+ 
 }
 
 model EquipmentMedicalKit {
@@ -56,8 +55,7 @@ model EquipmentMedicalKit {
   medicalKit   MedicalKit @relation(fields: [medicalKitId], references: [id])
   medicalKitId String
   
-  
-  
+
 }
 
 model Category {
@@ -78,6 +76,7 @@ model Ambulance {
   statebrigades StateBrigade[] @relation(name: "AmbulanceToStateBrigade")
   equipment    EquipmentAmbulance[]
   
+  
 }              
   
 
@@ -92,11 +91,6 @@ model EquipmentAmbulance {
   available    Boolean    @default(true)
   ambulance    Ambulance  @relation(fields: [ambulanceId], references: [id])
   ambulanceId  String
-  
- 
-  
-  
-  
   
 }
 
@@ -118,21 +112,27 @@ model StateBrigade {
   ambulanceId    String
   userTaker      User       @relation(name: "UserToStateBrigade", fields: [userTakerId], references: [id])
   userTakerId    String
-  recipe        Recipe[]
-  
-   
+ 
 }
 
-model Recipe {
-  id          String     @id @default(cuid())
-  createdAt   DateTime   @default(now())
-  nomerKarti  String
-  status      Boolean    @default(false)
-  user        User       @relation(fields: [userId], references: [id])
-  userId      String
-  updateAt    DateTime?
-  brigade   StateBrigade @relation(fields: [brigadeId], references: [id])
-  brigadeId  String
+model DeductedMedication {
+  id             String             @id @default(uuid())
+  callCardNumber String
+  deductionDate  DateTime
+  status         Boolean            @default(false)
+  user           User               @relation(fields: [userId], references: [id])
+  userId         String
+  medicalKit     MedicalKit         @relation(fields: [medicalKitId], references: [id])
+  medicalKitId   String
+  items          DeductedItem[]
+}
+
+model DeductedItem {
+  id                  String             @id @default(uuid())
+  name                String
+  quantity            Int
+  deductedMedication  DeductedMedication @relation(fields: [deductedMedicationId], references: [id])
+  deductedMedicationId String
 }
 
 

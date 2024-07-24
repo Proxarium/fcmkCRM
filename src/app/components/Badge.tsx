@@ -21,7 +21,7 @@ const Badge: React.FC<BadgeProps> = ({ text, type }) => {
   };
 
   return (
-    <span className={`px-2 py-1 rounded text-white ${getTypeClass()}`}>
+    <span className={`px-2  rounded text-white ${getTypeClass()}`}>
       {text}
     </span>
   );

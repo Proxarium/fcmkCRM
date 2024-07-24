@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { returnBrigade } from "@/actions/returnBrigade"; // Обновите путь к функции returnBrigade, если необходимо
+import LoadingButton from "./LoadingButton";
 
 const ReturnBrigade: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,6 +11,7 @@ const ReturnBrigade: React.FC = () => {
   const [commentAmbulance, setCommentAmbulance] = useState("");
   const [brigadeChecked, setBrigadeChecked] = useState(false);
   const [carClean, setCarClean] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -23,10 +25,19 @@ const ReturnBrigade: React.FC = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-
-    onToggle();
+  const handleSubmit = async () => {
+    setIsLoading(true)
+    try {
+      const formData = new FormData();
+      formData.append("commentMedicalKit", commentMedicalKit);
+      formData.append("commentAmbulance", commentAmbulance);
+      await returnBrigade(formData); // Вызываем функцию returnBrigade
+    } catch (error) {
+      console.error("Error returning brigade:", error);
+    } finally {
+      setIsLoading(false); // Устанавливаем состояние загрузки в false
+      onToggle(); // Закрываем форму после отправки
+    }
   };
 
   return (
@@ -121,12 +132,9 @@ const ReturnBrigade: React.FC = () => {
                   onChange={(e) => setCarClean(e.target.checked)}
                 />
               </div>
-              <button
-                type="submit"
-                className="bg-blue-500 text-white text-xs p-2 flex items-center justify-center rounded-md mt-2 w-full"
-              >
+              <LoadingButton onClick={handleSubmit} isLoading={isLoading}>
                 Сдать бригаду
-              </button>
+              </LoadingButton>
             </form>
           </div>
         </>

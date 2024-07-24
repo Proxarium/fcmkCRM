@@ -7,6 +7,8 @@ import { saveAmbulanceEquipment } from "@/actions/saveAmbulanceEquipment";
 import AccordionWrapperAmbulance from "./AccordionWrapperAmbulance";
 import AccordionWrapperBrigade from "./AccordionWrapperBrigade";
 import ReturnBrigade from "./ReturnBrigade";
+import AccordionCardInfo from "./AccordionCardInfo";
+import ServerDeductEquipment from "./recept/ServerDeductEquipment";
 
 export default async function BrigadeComponent() {
   const brigadeData = await getBrigadeData();
@@ -18,6 +20,7 @@ export default async function BrigadeComponent() {
       ? await getLastBrigadeUser(medicalKitId, ambulanceId)
       : {
           medicalKitUser: "Нет данных",
+          returnDate: "Нет данных",
           ambulanceUser: "Нет данных",
           commentReturnKit: "Нет данных",
           commentReturnAmbulance: "Нет данных",
@@ -35,24 +38,36 @@ export default async function BrigadeComponent() {
             
             
           />
-          <div className="bg-neutral-800/20 p-4 rounded-lg">
-            <p className="text-sm">{`Укладку сдал: ${lastBrigadeUser.medicalKitUser}`}</p>
-            <p className="text-sm">{`Комментарий при сдаче укладки: ${lastBrigadeUser.commentReturnKit}`}</p>
-          </div>
+          
 
           <AccordionWrapperAmbulance
             brigade={brigadeData}
             saveAmbulanceEquipment={saveAmbulanceEquipment}
             
           />
-          <div className="bg-neutral-800/20 p-4 rounded-lg">
-            <p className="text-sm">{`Машину сдал: ${lastBrigadeUser.ambulanceUser}`}</p>
-            <p className="text-sm">{`Комментарий при сдаче машины: ${lastBrigadeUser.commentReturnAmbulance}`}</p>
-          </div>
+         
+          <AccordionCardInfo
+          medicalKitUser={lastBrigadeUser.medicalKitUser}
+          returnDate={lastBrigadeUser.returnDate.toLocaleString()}
+          commentReturnKit={lastBrigadeUser.commentReturnKit}
+          ambulanceUser={lastBrigadeUser.ambulanceUser}
+          commentReturnAmbulance={lastBrigadeUser.commentReturnAmbulance}
+        />
         </div>
+        <div className="">
 
-        <div className="flex justify-center mt-5">
+        <div className="">
+        <ServerDeductEquipment 
+         medicalKitId={medicalKitId}
+        />
+          {/* <RecipeForm /> */}
+          
+        </div>
+        <div className="flex justify-end ">
+          
           <ReturnBrigade />
+          
+        </div>
         </div>
       </div>
     );

@@ -1,3 +1,4 @@
+
 import BrigadeComponent from "@/app/components/BrigadeComponent";
 import React from "react";
 

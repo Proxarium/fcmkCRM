@@ -118,7 +118,7 @@ const AccordionCardBrigade: React.FC<AccordionCardProps> = ({
         onClick={onToggle}
       >
         <div className="flex items-center">
-          <img src={imageSrc} alt="icon" className="w-8 h-8 mr-2" />
+          <img src={imageSrc} alt="icon" className="w-10 h-10 mr-2" />
           <h2>{title}</h2>
           {verificationMessage && (
             <span
@@ -141,13 +141,16 @@ const AccordionCardBrigade: React.FC<AccordionCardProps> = ({
             onClick={onToggle}
           ></div>
           <div
-            className={`fixed bottom-0 left-0 w-full h-4/5 bg-neutral-900 z-20 shadow-lg rounded-t-lg flex flex-col transition-transform duration-300 ease-in-out ${
+            className={`fixed bottom-0 left-0 w-full h-full bg-neutral-900 z-20 shadow-lg rounded-t-lg flex flex-col transition-transform duration-300 ease-in-out ${
               isAnimating ? "translate-y-0" : "translate-y-full"
             }`}
           >
             <div className="p-6 bg-neutral-900 z-20 sticky top-0">
               <div className="w-full flex justify-center items-center text-center mb-4 font-bold">
                 <span>{`Перечень содержимого линейной укладки ${title}`}</span>
+              <button onClick={onToggle} className="text-white absolute top-4 right-4">
+                ✖
+              </button>
               </div>
               <div className="">
                 <input
@@ -231,7 +234,7 @@ const AccordionCardBrigade: React.FC<AccordionCardProps> = ({
                 ))}
               </ul>
             </div>
-            <div className="p-6 bg-neutral-900 z-20 sticky bottom-0">
+            <div className="p-6 bg-neutral-800 rounded-b-lg sticky bottom-0">
               <LoadingButton onClick={handleSubmit} isLoading={loading}>
                 Подтвердить
               </LoadingButton>

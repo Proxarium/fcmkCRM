@@ -11,6 +11,7 @@ export async function getLastBrigadeUser(
     },
     orderBy: { returnDate: "desc" },
     select: {
+      returnDate: true,
       commentReturnKit: true,
       userTaker: {
         select: {
@@ -39,6 +40,7 @@ export async function getLastBrigadeUser(
   return {
     medicalKitUser:
       latestMedicalKitBrigade?.userTaker?.username || "Нет данных",
+    returnDate: latestMedicalKitBrigade?.returnDate || "Нет данных",
     ambulanceUser: latestAmbulanceBrigade?.userTaker?.username || "Нет данных",
     commentReturnKit: latestMedicalKitBrigade?.commentReturnKit || "Нет данных",
     commentReturnAmbulance:

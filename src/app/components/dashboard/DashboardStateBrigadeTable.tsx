@@ -70,7 +70,7 @@ const BrigadeTable: React.FC = () => {
               <td className="py-2 px-4 border-b border-gray-700">
                 {brigade.returnDate?.toLocaleString() || "N/A"}
               </td>
-              <td className="py-2 px-4 border-b border-gray-700">
+              <td className="flex py-2 px-4 border-b border-gray-700 justify-center items-center">
                 <Badge
                   text={brigade.workStatus ? "В работе" : "Сдана"}
                   type={brigade.workStatus ? "info" : "success"}

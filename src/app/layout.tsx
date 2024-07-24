@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "./components/Navbar";
+
 import { ClerkProvider, SignIn } from "@clerk/nextjs";
 import { ruRU } from "@clerk/localizations";
 import logo from "../../public/csaLogo.png";
+import LoadingIndicator from "./components/LoadingSpinner";
+import { LoadingProvider } from "./components/LoadingContext";
+import LoadingSpinner from "./components/LoadingSpinner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,18 +23,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
+    <LoadingProvider>
     <ClerkProvider localization={ruRU}>
       <html lang="en">
         <body className={inter.className}>
           {/* <div className="w-full bg-white px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
             <Navbar />
           </div> */}
-
+          <LoadingSpinner/>
           {/* <div className="px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64"> */}
           {children}
           {/* </div> */}
         </body>
       </html>
     </ClerkProvider>
+    </LoadingProvider>
   );
 }
