@@ -5,6 +5,7 @@ import { useState } from "react";
 type BrigadeInfoCardProps = {
   medicalKitUser: string;
   returnDate: string | Date;
+  returnDateAmbulance: string | Date;
   commentReturnKit: string;
   ambulanceUser: string;
   commentReturnAmbulance: string;
@@ -13,6 +14,7 @@ type BrigadeInfoCardProps = {
 const BrigadeInfoCard: React.FC<BrigadeInfoCardProps> = ({
   medicalKitUser,
   returnDate,
+  returnDateAmbulance,
   commentReturnKit,
   ambulanceUser,
   commentReturnAmbulance,
@@ -40,7 +42,7 @@ const BrigadeInfoCard: React.FC<BrigadeInfoCardProps> = ({
             <p className="text-sm">{`Комментарий при сдаче укладки: ${commentReturnKit}`}</p>
           </div>
           <div className="bg-neutral-800/20 p-4 rounded-lg mt-4">
-            <p className="text-sm">{`${returnDate}`}</p>
+            <p className="text-sm">{`${returnDateAmbulance}`}</p>
             <p className="text-sm">{`Машину сдал: ${ambulanceUser}`}</p>
             <p className="text-sm">{`Комментарий при сдаче машины: ${commentReturnAmbulance}`}</p>
           </div>

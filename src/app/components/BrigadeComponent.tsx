@@ -32,44 +32,35 @@ export default async function BrigadeComponent() {
         <h1 className="text-2xl font-bold mb-5">Ваша бригада</h1>
 
         <div className="space-y-4">
+          
           <AccordionWrapperBrigade
             brigade={brigadeData}
             saveMedicalKitEquipment={saveMedicalKitEquipment}
-            
-            
           />
-          
-
           <AccordionWrapperAmbulance
             brigade={brigadeData}
             saveAmbulanceEquipment={saveAmbulanceEquipment}
-            
           />
          
           <AccordionCardInfo
           medicalKitUser={lastBrigadeUser.medicalKitUser}
           returnDate={lastBrigadeUser.returnDate.toLocaleString()}
+          returnDateAmbulance={lastBrigadeUser.returnDate.toLocaleString()}
           commentReturnKit={lastBrigadeUser.commentReturnKit}
           ambulanceUser={lastBrigadeUser.ambulanceUser}
           commentReturnAmbulance={lastBrigadeUser.commentReturnAmbulance}
-        />
+          />
         </div>
-        <div className="">
-
-        <div className="">
+     
+        <div className="p-6 bg-neutral-800 bottom-0 space-y-4"> 
         <ServerDeductEquipment 
          medicalKitId={medicalKitId}
-        />
-          {/* <RecipeForm /> */}
+        /> 
+        <ReturnBrigade />
+        </div>
           
         </div>
-        <div className="flex justify-end ">
-          
-          <ReturnBrigade />
-          
-        </div>
-        </div>
-      </div>
+        
     );
   }
 

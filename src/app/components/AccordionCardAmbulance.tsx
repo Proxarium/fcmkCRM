@@ -146,7 +146,7 @@ const AccordionCardAmbulance: React.FC<AccordionCardProps> = ({
             <div className="p-6 bg-neutral-900 z-20 sticky top-0">
               <div className="w-full flex justify-center items-center text-center mb-4 font-bold">
                 <span>{`Перечень содержимого ${title}`}</span>
-                <button onClick={onToggle} className="text-white absolute top-4 right-4">
+                <button onClick={onToggle} className="text-white absolute top-3 right-4">
                 ✖
               </button>
               </div>

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import LoadingButton from '@/app/components/LoadingButton';
 
+
 interface DeductItem {
   name: string;
   quantity: number;
@@ -76,6 +77,9 @@ export default function DeductEquipmentForm({ medicalKitId, equipment, userId, s
         userId,
       });
 
+      
+    
+
       router.refresh();
     } catch (error) {
       console.error('Error saving deduction:', error);
@@ -88,10 +92,10 @@ export default function DeductEquipmentForm({ medicalKitId, equipment, userId, s
   return (
     <div className="relative">
       <button
-        className="bg-blue-500 text-white text-xs p-2 flex items-center justify-center rounded-md mt-2"
+        className="relative px-4 py-2 bg-blue-500 text-white text-xs rounded-md flex items-center justify-center w-full"
         onClick={onToggle}
       >
-        Списать препараты
+        Написать рецепт для укладки
       </button>
       {isOpen && (
         <>
@@ -147,7 +151,7 @@ export default function DeductEquipmentForm({ medicalKitId, equipment, userId, s
                 )}
               </div>
               <div className="mb-4">
-                <h2 className="flex text-white mb-2 justify-center">Списанные препараты</h2>
+                <h2 className="text-white mb-2">Списанные препараты</h2>
                 {deductedItems.map((item, index) => (
                   <div key={index} className="flex justify-between items-center mb-2">
                     <span className="text-white">{item.name}</span>
@@ -178,15 +182,18 @@ export default function DeductEquipmentForm({ medicalKitId, equipment, userId, s
                 ))}
               </div>
             </div>
+            <div className="p-6 bg-neutral-800 rounded-b-lg sticky bottom-0">
             <LoadingButton onClick={handleSave} isLoading={isLoading}>
-              Отправить
+              Отправить рецепт
             </LoadingButton>
+            </div>
           </div>
         </>
       )}
     </div>
   );
 }
+
 
 
 

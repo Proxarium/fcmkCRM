@@ -43,7 +43,7 @@ const ReturnBrigade: React.FC = () => {
   return (
     <div className="relative">
       <button
-        className="bg-blue-500 text-white text-xs p-2 flex items-center justify-center rounded-md mt-2"
+        className="relative px-4 py-2 bg-blue-500 text-white text-xs rounded-md flex items-center justify-center w-full"
         onClick={onToggle}
       >
         Сдать бригаду
