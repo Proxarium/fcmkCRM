@@ -35,7 +35,7 @@ const BrigadeInfoCard: React.FC<BrigadeInfoCardProps> = ({
         <span>{isOpen ? "▲" : "▼"}</span>
       </div>
       {isOpen && (
-        <div className="p-4">
+        <div className="p-4 overflow-y-auto h-[355px]">
           <div className="bg-neutral-800/20 p-4 rounded-lg">
             <p className="text-sm">{`${returnDate}`}</p>
             <p className="text-sm">{`Укладку сдал: ${medicalKitUser}`}</p>

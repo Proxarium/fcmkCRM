@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { acceptBrigade } from "@/actions/acceptBrigade";
-import LoadingButton from "./LoadingButton";
+import LoadingButton from "../LoadingButton";
 
 interface ClientBrigadeFormProps {
   medicalKits: { id: string; name: string }[];

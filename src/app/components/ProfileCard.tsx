@@ -68,12 +68,12 @@ const ProfileCard = async () => {
             : user.username} */}
           {user.username}
         </span>
-        <div className="flex items-center gap-4"></div>
+        {/* <div className="flex items-center gap-4"></div>
         <Link href={`/profile/${user.username}`}>
           <button className="bg-blue-500 text-white text-xs p-2 rounded-md">
             My Profile
           </button>
-        </Link>
+        </Link> */}
       </div>
       {brigade ? (
         <div>

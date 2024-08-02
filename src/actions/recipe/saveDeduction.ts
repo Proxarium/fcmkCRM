@@ -1,3 +1,4 @@
+// saveDeduction.ts
 "use server";
 
 import prisma from '@/lib/client';
@@ -83,12 +84,18 @@ ${data.deductedItems.map(item => `*${item.name}:* ${item.quantity} шт`).join('
       *Сотрудник:* ${user.username}
     `;
 
-    // Отправка сообщения в Telegram
+    // Отправка сообщения в Telegram с кнопкой "Пополнить"
     const TELEGRAM_API_URL = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`;
     await axios.post(TELEGRAM_API_URL, {
       chat_id: process.env.TELEGRAM_CHAT_ID,
       text: message,
       parse_mode: 'Markdown',
+      reply_markup: {
+        inline_keyboard: [[{
+          text: 'Пополнить',
+          callback_data: `replenish_${deduction.id}`
+        }]]
+      }
     });
 
     revalidatePath("/mainpage/brigade");
@@ -98,6 +105,7 @@ ${data.deductedItems.map(item => `*${item.name}:* ${item.quantity} шт`).join('
     throw new Error('Failed to save deduction');
   }
 }
+
 
 
 

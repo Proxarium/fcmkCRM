@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import LoadingButton from "./LoadingButton";
+import LoadingButton from "../LoadingButton";
 import Tooltip from "./Tooltip";
 
 type EquipmentItem = {
@@ -170,7 +170,7 @@ const AccordionCardBrigade: React.FC<AccordionCardProps> = ({
                       className="flex items-center justify-between text-sm py-2 cursor-pointer bg-neutral-900 sticky top-0 z-30"
                       onClick={() => toggleCategory(category)}
                     >
-                      <span>{category}</span>
+                      <span className="font-bold">{category}</span>
                       <span>
                         {expandedCategories.includes(category) ? "▲" : "▼"}
                       </span>
@@ -187,7 +187,7 @@ const AccordionCardBrigade: React.FC<AccordionCardProps> = ({
                                 className={`flex-1 ${
                                   item.quantity === 0 || !item.available
                                     ? "text-red-500"
-                                    : ""
+                                    : "text-gray-400 font-semibold"
                                 }`}
                               >
                                 {item.name} {item.fquantity}шт
@@ -207,7 +207,7 @@ const AccordionCardBrigade: React.FC<AccordionCardProps> = ({
                               </span>
                               <button
                                 onClick={() => handleQuantityChange(item.id, 1)}
-                                className="text-white border border-gray-500 pb-0.5 rounded-md text-xl w-5 h-5 flex items-center justify-center bg-neutral-700"
+                                className="text-white border border-gray-500 p-1 rounded-md text-xl w-5 h-5 flex items-center justify-center bg-neutral-700"
                               >
                                 +
                               </button>

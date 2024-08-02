@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { getStateBrigades, StateBrigade } from "@/actions/dashboard/stateBrigade";
-import Badge from "../Badge";
+import Badge from "./Badge";
 import Modal from "./Modal";
 
 const BrigadeTable: React.FC = () => {

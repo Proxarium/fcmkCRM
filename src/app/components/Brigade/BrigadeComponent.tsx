@@ -1,5 +1,5 @@
 "use server"
-import BrigadeForm from "@/app/components/BrigadeForm";
+import BrigadeForm from "@/app/components/Brigade/BrigadeForm";
 import { getBrigadeData } from "@/actions/getBrigadeData";
 import { getLastBrigadeUser } from "@/actions/getLastBrigadeUser";
 import { saveMedicalKitEquipment } from "@/actions/saveMedicalKitEquipment";
@@ -8,7 +8,7 @@ import AccordionWrapperAmbulance from "./AccordionWrapperAmbulance";
 import AccordionWrapperBrigade from "./AccordionWrapperBrigade";
 import ReturnBrigade from "./ReturnBrigade";
 import AccordionCardInfo from "./AccordionCardInfo";
-import ServerDeductEquipment from "./recept/ServerDeductEquipment";
+import ServerDeductEquipment from "../recept/ServerDeductEquipment";
 
 export default async function BrigadeComponent() {
   const brigadeData = await getBrigadeData();
@@ -52,7 +52,7 @@ export default async function BrigadeComponent() {
           />
         </div>
      
-        <div className="p-6 bg-neutral-800 bottom-0 space-y-4"> 
+        <div className="p-6 bg-neutral-800/20 rounded-lg bottom-0 space-y-4"> 
         <ServerDeductEquipment 
          medicalKitId={medicalKitId}
         /> 

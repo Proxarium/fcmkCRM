@@ -1,18 +1,21 @@
 import React from "react";
 
 interface LoadingButtonProps {
-  onClick: () => Promise<void>;
+  type?: "button" | "submit" | "reset";
+  onClick?: () => void;
   isLoading: boolean;
   children: React.ReactNode;
 }
 
 const LoadingButton: React.FC<LoadingButtonProps> = ({
+  type = "button",
   onClick,
   isLoading,
   children,
 }) => {
   return (
     <button
+      type={type}
       onClick={onClick}
       disabled={isLoading}
       className="relative px-4 py-2 bg-blue-500 text-white text-xs rounded-md flex items-center justify-center w-full"
@@ -49,4 +52,5 @@ const LoadingButton: React.FC<LoadingButtonProps> = ({
 };
 
 export default LoadingButton;
+
 

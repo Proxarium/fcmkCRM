@@ -1,9 +1,9 @@
-'use client';
-
-import { useState, useEffect } from 'react';
+"use client"
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import LoadingButton from '@/app/components/LoadingButton';
-
+import Toast from '../Brigade/Toast';
+ // Импортируем компонент Toast
 
 interface DeductItem {
   name: string;
@@ -30,6 +30,7 @@ export default function DeductEquipmentForm({ medicalKitId, equipment, userId, s
   const [isOpen, setIsOpen] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [toastMessage, setToastMessage] = useState(''); // Стейт для сообщения Toast
 
   useEffect(() => {
     if (isOpen) {
@@ -76,16 +77,13 @@ export default function DeductEquipmentForm({ medicalKitId, equipment, userId, s
         deductedItems,
         userId,
       });
-
-      
-    
-
+      setToastMessage('Рецепт отправлен'); // Устанавливаем сообщение Toast
       router.refresh();
     } catch (error) {
       console.error('Error saving deduction:', error);
     } finally {
-      setIsLoading(false); // Устанавливаем состояние загрузки в false
-      onToggle(); // Закрываем форму после отправки
+      setIsLoading(false);
+      onToggle();
     }
   };
 
@@ -183,16 +181,18 @@ export default function DeductEquipmentForm({ medicalKitId, equipment, userId, s
               </div>
             </div>
             <div className="p-6 bg-neutral-800 rounded-b-lg sticky bottom-0">
-            <LoadingButton onClick={handleSave} isLoading={isLoading}>
-              Отправить рецепт
-            </LoadingButton>
+              <LoadingButton onClick={handleSave} isLoading={isLoading}>
+                Отправить рецепт
+              </LoadingButton>
             </div>
           </div>
         </>
       )}
+      {toastMessage && <Toast message={toastMessage} />} {/* Добавляем компонент Toast */}
     </div>
   );
 }
+
 
 
 

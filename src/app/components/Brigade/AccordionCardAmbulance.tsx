@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import LoadingButton from "./LoadingButton";
+import LoadingButton from "../LoadingButton";
 
 type EquipmentItem = {
   id: string;

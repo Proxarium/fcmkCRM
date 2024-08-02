@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { returnBrigade } from "@/actions/returnBrigade"; // Обновите путь к функции returnBrigade, если необходимо
-import LoadingButton from "./LoadingButton";
+import LoadingButton from "../LoadingButton";
+import ConfirmModal from "./ConfirmModal";
 
 const ReturnBrigade: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,6 +13,7 @@ const ReturnBrigade: React.FC = () => {
   const [brigadeChecked, setBrigadeChecked] = useState(false);
   const [carClean, setCarClean] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -25,8 +27,8 @@ const ReturnBrigade: React.FC = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleSubmit = async () => {
-    setIsLoading(true)
+  const handleConfirmSubmit = async () => {
+    setIsLoading(true);
     try {
       const formData = new FormData();
       formData.append("commentMedicalKit", commentMedicalKit);
@@ -36,8 +38,14 @@ const ReturnBrigade: React.FC = () => {
       console.error("Error returning brigade:", error);
     } finally {
       setIsLoading(false); // Устанавливаем состояние загрузки в false
+      setShowConfirm(false); // Закрываем модальное окно подтверждения
       onToggle(); // Закрываем форму после отправки
     }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setShowConfirm(true);
   };
 
   return (
@@ -65,7 +73,7 @@ const ReturnBrigade: React.FC = () => {
               </div>
             </div>
             <form
-              action={returnBrigade}
+              onSubmit={handleSubmit}
               className="flex-1 overflow-y-auto px-6 pt-2"
             >
               <div className="relative mb-6">
@@ -132,15 +140,24 @@ const ReturnBrigade: React.FC = () => {
                   onChange={(e) => setCarClean(e.target.checked)}
                 />
               </div>
-              <LoadingButton onClick={handleSubmit} isLoading={isLoading}>
+              <LoadingButton type="submit" isLoading={isLoading}>
                 Сдать бригаду
               </LoadingButton>
             </form>
           </div>
         </>
       )}
+      {showConfirm && (
+        <ConfirmModal
+          message="Вы уверены что хотите сдать бригаду? Данные будут записаны."
+          onConfirm={handleConfirmSubmit}
+          onCancel={() => setShowConfirm(false)}
+        />
+      )}
     </div>
   );
 };
 
 export default ReturnBrigade;
+
+

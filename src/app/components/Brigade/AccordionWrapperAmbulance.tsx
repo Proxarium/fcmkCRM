@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import AccordionCardAmbulance from "@/app/components/AccordionCardAmbulance";
+import AccordionCardAmbulance from "@/app/components/Brigade/AccordionCardAmbulance";
 
 type EquipmentItem = {
   id: string;

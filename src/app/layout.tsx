@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Roboto } from "next/font/google";
 import "./globals.css";
 
 import { ClerkProvider, SignIn } from "@clerk/nextjs";
@@ -9,7 +9,10 @@ import LoadingIndicator from "./components/LoadingSpinner";
 import { LoadingProvider } from "./components/LoadingContext";
 import LoadingSpinner from "./components/LoadingSpinner";
 
-const inter = Inter({ subsets: ["latin"] });
+const roboto = Roboto({ 
+  weight: ["400", "700"], // Specify the weights you need
+  subsets: ["latin"] 
+});
 
 export const metadata: Metadata = {
   manifest: "/manifest.json",
@@ -26,7 +29,7 @@ export default function RootLayout({
     <LoadingProvider>
     <ClerkProvider localization={ruRU}>
       <html lang="en">
-        <body className={inter.className}>
+        <body className={roboto.className}>
           {/* <div className="w-full bg-white px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
             <Navbar />
           </div> */}
