@@ -41,7 +41,7 @@ export async function getLastBrigadeUser(
   return {
     medicalKitUser:
       latestMedicalKitBrigade?.userTaker?.username || "Нет данных",
-    returnDate: latestMedicalKitBrigade?.returnDate || "Нет данных",
+    returnDateKit: latestMedicalKitBrigade?.returnDate || "Нет данных",
     returnDateAmbulance: latestAmbulanceBrigade?.returnDate || "Нет данных",
     ambulanceUser: latestAmbulanceBrigade?.userTaker?.username || "Нет данных",
     commentReturnKit: latestMedicalKitBrigade?.commentReturnKit || "Нет данных",

@@ -1,28 +1,28 @@
-// saveDeduction.ts
+// actions/ambulance/saveAmbulanceDeduction.ts
 "use server";
 
-import prisma from '@/lib/client';
-import { auth } from '@clerk/nextjs/server';
-import axios from 'axios';
-import { revalidatePath } from 'next/cache';
+import prisma from "@/lib/client";
+import { auth } from "@clerk/nextjs/server";
+import axios from "axios";
+import { revalidatePath } from "next/cache";
 
 interface DeductItem {
   name: string;
   quantity: number;
 }
 
-interface DeductionData {
+interface SaveDeductionData {
   callCardNumber: string;
-  medicalKitId: string;
+  ambulanceId: string;
   deductedItems: DeductItem[];
   userId: string;
 }
 
-export async function saveDeduction(data: DeductionData) {
+export async function saveAmbulanceDeduction(data: SaveDeductionData) {
   const { userId } = auth();
 
   if (!userId) {
-    throw new Error('User is not authenticated!');
+    throw new Error("User is not authenticated!");
   }
 
   const user = await prisma.user.findFirst({
@@ -33,24 +33,24 @@ export async function saveDeduction(data: DeductionData) {
 
   if (!user) return null;
 
-  const medicalKit = await prisma.medicalKit.findFirst({
+  const ambulance = await prisma.ambulance.findFirst({
     where: {
-      id: data.medicalKitId,
+      id: data.ambulanceId,
     },
   });
 
-  if (!medicalKit) {
-    throw new Error('Medical kit not found!');
+  if (!ambulance) {
+    throw new Error("Ambulance not found!");
   }
 
   try {
-    const deduction = await prisma.deductedMedication.create({
+    const deduction = await prisma.deductedAmbulance.create({
       data: {
         callCardNumber: data.callCardNumber,
         deductionDate: new Date(),
         status: false,
         userId: data.userId,
-        medicalKitId: data.medicalKitId,
+        ambulanceId: data.ambulanceId,
         items: {
           create: data.deductedItems.map((item) => ({
             name: item.name,
@@ -61,9 +61,9 @@ export async function saveDeduction(data: DeductionData) {
     });
 
     for (const item of data.deductedItems) {
-      await prisma.equipmentMedicalKit.updateMany({
+      await prisma.equipmentAmbulance.updateMany({
         where: {
-          medicalKitId: data.medicalKitId,
+          ambulanceId: data.ambulanceId,
           name: item.name,
         },
         data: {
@@ -76,7 +76,7 @@ export async function saveDeduction(data: DeductionData) {
 
     // Формирование сообщения для отправки в Telegram
     const message = `
-      *Рецепт:* ${medicalKit.name}
+      *Рецепт:* ${ambulance.number}
       *Дата списания:* ${new Date().toLocaleString()}
       *Номер карты вызова:* ${data.callCardNumber}
       *Списанные препараты:*
@@ -92,8 +92,8 @@ ${data.deductedItems.map(item => `*${item.name}:* ${item.quantity} шт`).join('
       parse_mode: 'Markdown',
       reply_markup: {
         inline_keyboard: [[{
-          text: 'Пополнить',
-          callback_data: `replenish_${deduction.id}`
+          text: `Пополнить АСМП №${ambulance.number} `,
+          callback_data: `replenish_ambulance_${deduction.id}`
         }]]
       }
     });
@@ -101,11 +101,8 @@ ${data.deductedItems.map(item => `*${item.name}:* ${item.quantity} шт`).join('
     revalidatePath("/mainpage/brigade");
     return deduction;
   } catch (error) {
-    console.error('Error saving deduction:', error);
-    throw new Error('Failed to save deduction');
+    console.error("Error saving deduction:", error);
+    throw new Error("Failed to save deduction");
   }
 }
-
-
-
 

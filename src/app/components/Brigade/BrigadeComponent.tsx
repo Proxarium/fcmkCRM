@@ -8,7 +8,8 @@ import AccordionWrapperAmbulance from "./AccordionWrapperAmbulance";
 import AccordionWrapperBrigade from "./AccordionWrapperBrigade";
 import ReturnBrigade from "./ReturnBrigade";
 import AccordionCardInfo from "./AccordionCardInfo";
-import ServerDeductEquipment from "../recept/ServerDeductEquipment";
+import ServerDeductEquipment from "../receptBrigade/ServerDeductEquipment";
+import ServerDeductAmbulanceEquipment from "../receptAirambulance/ServerAmbulanceEquipment";
 
 export default async function BrigadeComponent() {
   const brigadeData = await getBrigadeData();
@@ -20,7 +21,8 @@ export default async function BrigadeComponent() {
       ? await getLastBrigadeUser(medicalKitId, ambulanceId)
       : {
           medicalKitUser: "Нет данных",
-          returnDate: "Нет данных",
+          returnDateKit: "Нет данных",
+          returnDateAmbulance: "Нет данных",
           ambulanceUser: "Нет данных",
           commentReturnKit: "Нет данных",
           commentReturnAmbulance: "Нет данных",
@@ -44,8 +46,8 @@ export default async function BrigadeComponent() {
          
           <AccordionCardInfo
           medicalKitUser={lastBrigadeUser.medicalKitUser}
-          returnDate={lastBrigadeUser.returnDate.toLocaleString()}
-          returnDateAmbulance={lastBrigadeUser.returnDate.toLocaleString()}
+          returnDateKit={lastBrigadeUser.returnDateKit.toLocaleString()}
+          returnDateAmbulance={lastBrigadeUser.returnDateAmbulance.toLocaleString()}
           commentReturnKit={lastBrigadeUser.commentReturnKit}
           ambulanceUser={lastBrigadeUser.ambulanceUser}
           commentReturnAmbulance={lastBrigadeUser.commentReturnAmbulance}
@@ -55,7 +57,10 @@ export default async function BrigadeComponent() {
         <div className="p-6 bg-neutral-800/20 rounded-lg bottom-0 space-y-4"> 
         <ServerDeductEquipment 
          medicalKitId={medicalKitId}
-        /> 
+        />
+        <ServerDeductAmbulanceEquipment
+        ambulanceId={ambulanceId}
+        />
         <ReturnBrigade />
         </div>
           

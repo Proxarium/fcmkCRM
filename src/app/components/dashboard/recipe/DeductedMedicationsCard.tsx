@@ -2,7 +2,7 @@
 "use client"
 import { useEffect, useState } from "react";
 import { getDeductedMedications } from "@/actions/dashboard/getDeductedMedications";
-import { markAsReplenished } from "@/actions/recipe/markAsReplenished";
+import { markAsReplenished } from "@/actions/recipeBrigade/markAsReplenished";
 import Card from "../Card";
 import Modal from "../Modal";
 
@@ -63,16 +63,22 @@ const DeductedMedicationsCard = () => {
   };
 
   return (
-    <div className="px-5 pt-5 bg-neutral-900 rounded-lg">
-      <h1 className="flex text-xl font-bold mb-6 text-white justify-center">Рецепты</h1>
-      <div className="flex flex-col space-y-4 h-[550px] overflow-y-auto no-scrollbar">
+    <div className="px-2 pt-5 bg-neutral-900 rounded-lg ring-1">
+      <div className="flex items-center justify-between px-3 ">
+        <div className="flex flex-col">
+      <h1 className=" text-xl font-bold  text-white">Рецепты</h1>
+      <span className="text-xs text-neutral-500">линейных укладок</span>
+      </div>
+      <img src="/medicalKit.png" alt='recipe' className="w-12 h-12"/>
+      </div>
+      <div className="flex flex-col space-y-2 h-[180px] overflow-y-auto no-scrollbar pt-2 px-0.5">
       {deductions.map((deduction) => (
         <Card
           key={deduction.id}
-          imageSrc="/recept.png" // Replace with your image path
-          title={`Call Card Number: ${deduction.callCardNumber}`}
-          subtitle={`Deduction Date: ${new Date(deduction.deductionDate).toLocaleString()}`}
-          description={`User: ${deduction.user.username}\nMedical Kit: ${deduction.medicalKit.name}`}
+          // imageSrc="/recept.png" // Replace with your image path
+          subtitle={`Рецепт от ${new Date(deduction.deductionDate).toLocaleString()}`}
+          description={` ${deduction.medicalKit.name}`}
+          title={` ${deduction.user.username}`}
           onClick={() => openModal(deduction)}
         />
       ))}
@@ -80,15 +86,15 @@ const DeductedMedicationsCard = () => {
 
       {isModalOpen && selectedDeduction && (
         <Modal onClose={closeModal}>
-          <h2>Call Card Number: {selectedDeduction.callCardNumber}</h2>
-          <p>User: {selectedDeduction.user.username}</p>
-          <p>Deduction Date: {new Date(selectedDeduction.deductionDate).toLocaleString()}</p>
-          <p>Medical Kit: {selectedDeduction.medicalKit.name}</p>
-          <h3>Deducted Items:</h3>
+          <div className="text-white">
+          <p>Рецепт от: {new Date(selectedDeduction.deductionDate).toLocaleString()}</p>
+          <p>{selectedDeduction.medicalKit.name}</p>
+          <h2>Номер карты вызова: {selectedDeduction.callCardNumber}</h2>
+          </div>
           <table className="table-auto w-full text-white">
             <thead>
               <tr>
-                <th className="px-4 py-2">Препарат</th>
+                <th className="px-4 py-2">Название</th>
                 <th className="px-4 py-2">Количество</th>
               </tr>
             </thead>
@@ -101,18 +107,21 @@ const DeductedMedicationsCard = () => {
               ))}
             </tbody>
           </table>
+          <p className="text-white">Сотрудник: {selectedDeduction.user.username}</p>
+          <div className="space-y-2 pt-5">
           <button
-            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+            className="relative px-4 py-2 bg-blue-500 text-white text-xs rounded-md flex items-center justify-center w-full"
             onClick={handleReplenish}
           >
-            Пополнен
+            Пополнить
           </button>
           <button
-            className="mt-4 px-4 py-2 bg-red-500 text-white rounded"
+            className="relative px-4 py-2 bg-red-500 text-white text-xs rounded-md flex items-center justify-center w-full"
             onClick={closeModal}
           >
-            Close
+            Закрыть
           </button>
+          </div>
         </Modal>
       )}
     </div>

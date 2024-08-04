@@ -39,16 +39,16 @@ const DashboardBrigadeCard: React.FC = () => {
   };
 
   return (
-    <div className="px-5 pt-5 bg-neutral-900 rounded-lg">
-      <h1 className="flex text-xl font-bold mb-6 text-white justify-center">Активные бригады</h1>
-      <div className="flex flex-col space-y-4">
+    <div className="px-2 pt-5 pb-2.5 bg-neutral-900 rounded-lg ring-1">
+      <h1 className="flex text-xl font-bold mb-4 text-white justify-center">Активные бригады</h1>
+      <div className="flex flex-col space-y-2">
         {activeBrigades.map(brigade => (
           <Card
             key={brigade.id}
             imageSrc="/kung.png"
             title={brigade.userTaker.username}
             subtitle={brigade.medicalKit.name} 
-            description={brigade.ambulance.number}
+            description={`${brigade.ambulance.number}`}
             onClick={() => handleCardClick(brigade.id)}
           />
         ))}

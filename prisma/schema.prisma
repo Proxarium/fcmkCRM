@@ -26,7 +26,8 @@ model User {
   medicalkits  MedicalKit[]  @relation(name: "MedicalKitToUser")
   ambulances   Ambulance[]   @relation(name: "AmbulanceToUser")
   statebrigades StateBrigade[] @relation(name: "UserToStateBrigade")
-  deductions   DeductedMedication[]         
+  deductions   DeductedMedication[]
+  recipeCar    DeductedAmbulance[]         
 
 }
 
@@ -39,7 +40,6 @@ model MedicalKit {
   userId       String?
   statebrigades StateBrigade[] @relation(name: "MedicalKitToStateBrigade")
   equipment     EquipmentMedicalKit[]
-  
   deductions   DeductedMedication[]
  
 }
@@ -75,6 +75,7 @@ model Ambulance {
   userId       String?
   statebrigades StateBrigade[] @relation(name: "AmbulanceToStateBrigade")
   equipment    EquipmentAmbulance[]
+  recipe       DeductedAmbulance[]
   
   
 }              
@@ -133,6 +134,26 @@ model DeductedItem {
   quantity            Int
   deductedMedication  DeductedMedication @relation(fields: [deductedMedicationId], references: [id])
   deductedMedicationId String
+}
+
+model DeductedAmbulance {
+  id             String             @id @default(uuid())
+  callCardNumber String
+  deductionDate  DateTime
+  status         Boolean            @default(false)
+  user           User               @relation(fields: [userId], references: [id])
+  userId         String
+  ambulance      Ambulance          @relation(fields: [ambulanceId], references: [id])
+  ambulanceId    String
+  items          DeductedAmbulanceItem[]
+}
+
+model DeductedAmbulanceItem {
+  id                        String                       @id @default(uuid())
+  name                      String
+  quantity                  Int
+  deductedAmbulance DeductedAmbulance @relation(fields: [deductedAmbulanceId], references: [id])
+  deductedAmbulanceId String
 }
 
 

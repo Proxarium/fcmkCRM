@@ -1,5 +1,5 @@
 import DeductEquipmentForm from './DeductEquipmentForm';
-import { saveDeduction } from '@/actions/recipe/saveDeduction';
+import { saveDeduction } from '@/actions/recipeBrigade/saveDeduction';
 
 interface DeductEquipmentProps {
   medicalKitId: string;

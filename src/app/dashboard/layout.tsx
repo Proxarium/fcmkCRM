@@ -1,6 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "../components/Navbar";
+
 import Navigation from "../components/Navigation";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -19,7 +19,7 @@ const inter = Inter({ subsets: ["latin"] });
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <main className="w-full h-screen  flex flex-row relative">
+      <main className="w-screen h-screen  flex flex-row relative">
         <Navigation />
 
         {/* <div className="w-full bg-white px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">

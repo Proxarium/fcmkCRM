@@ -4,7 +4,7 @@ import { useState } from "react";
 
 type BrigadeInfoCardProps = {
   medicalKitUser: string;
-  returnDate: string | Date;
+  returnDateKit: string | Date;
   returnDateAmbulance: string | Date;
   commentReturnKit: string;
   ambulanceUser: string;
@@ -13,7 +13,7 @@ type BrigadeInfoCardProps = {
 
 const BrigadeInfoCard: React.FC<BrigadeInfoCardProps> = ({
   medicalKitUser,
-  returnDate,
+  returnDateKit,
   returnDateAmbulance,
   commentReturnKit,
   ambulanceUser,
@@ -26,7 +26,7 @@ const BrigadeInfoCard: React.FC<BrigadeInfoCardProps> = ({
   };
 
   return (
-    <div className="relative bg-neutral-800/20 rounded-lg mb-4">
+    <div className="relative bg-neutral-800/20 rounded-lg mb-4 ">
       <div
         className="p-4 cursor-pointer flex justify-between items-center"
         onClick={toggleOpen}
@@ -35,9 +35,9 @@ const BrigadeInfoCard: React.FC<BrigadeInfoCardProps> = ({
         <span>{isOpen ? "▲" : "▼"}</span>
       </div>
       {isOpen && (
-        <div className="p-4 overflow-y-auto h-[355px]">
+        <div className="p-4 overflow-y-auto h-[310px]">
           <div className="bg-neutral-800/20 p-4 rounded-lg">
-            <p className="text-sm">{`${returnDate}`}</p>
+            <p className="text-sm">{`${returnDateKit}`}</p>
             <p className="text-sm">{`Укладку сдал: ${medicalKitUser}`}</p>
             <p className="text-sm">{`Комментарий при сдаче укладки: ${commentReturnKit}`}</p>
           </div>
