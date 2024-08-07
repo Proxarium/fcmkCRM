@@ -5,19 +5,20 @@ import DeductedAmbulancesCard from '../components/dashboard/recipe/DeductedAmbul
 
 const DashboardPage = () => {
   return (
-    <div className='flex flex-col lg:flex-row justify-between'>
-    <div className='px-2 pt-3 '>
-      <DashboardBrigadeCard />
-    </div>
-    <div className='flex flex-col px-2 pt-3 space-y-3 lg:items-end '>
-      <div className='lg:w-full'>
-        <DeductedMedicationsCard />
+    <div className='flex flex-col lg:flex-row h-full w-full'>
+      <div className='px-2 pt-3 lg:w-1/3'>
+        <DashboardBrigadeCard />
       </div>
-      <div className='lg:w-full'>
-        <DeductedAmbulancesCard />
+      <div className='hidden lg:flex lg:w-2/3'></div>
+      <div className='px-2 pt-3 space-y-3 lg:w-1/3 lg:flex lg:flex-col lg:items-end'>
+        <div className='w-full'>
+          <DeductedMedicationsCard />
+        </div>
+        <div className='w-full'>
+          <DeductedAmbulancesCard />
+        </div>
       </div>
     </div>
-  </div>
   );
 };
 

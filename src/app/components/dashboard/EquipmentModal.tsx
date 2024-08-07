@@ -101,15 +101,15 @@ const EquipmentModal: React.FC<EquipmentModalProps> = ({ isOpen, onClose, brigad
             <p className="text-white text-md">АСМП № {ambulanceNumber}</p>
             <p className="text-white text-sm">Дата приема: {new Date(takeDate).toLocaleString()}</p>
             <div className="flex items-center gap-2">
-              <p className="text-white text-sm">Статус аптечки:</p>
+              <p className="text-white text-sm">Статус укладки:</p>
               <Badge status={checkedKit ? "Проверена" : "Ожидает проверки"} />
             </div>
-            {checkedKit && <p className="text-white text-sm">Дата проверки аптечки: {new Date(checkedKitDate).toLocaleString()}</p>}
+            {checkedKit && <p className="text-white text-sm">Дата проверки укладки: {new Date(checkedKitDate).toLocaleString()}</p>}
             <div className="flex items-center gap-2">
-              <p className="text-white text-sm">Статус автомобиля:</p>
+              <p className="text-white text-sm">Статус АСМП:</p>
               <Badge status={checkedAmbulance ? "Проверен" : "Ожидает проверки"} />
             </div>
-            {checkedAmbulance && <p className="text-white text-sm">Дата проверки автомобиля: {new Date(checkedAmbulanceDate).toLocaleString()}</p>}
+            {checkedAmbulance && <p className="text-white text-sm">Дата проверки АСМП: {new Date(checkedAmbulanceDate).toLocaleString()}</p>}
           </div>
           <button onClick={onClose} className="text-white absolute top-4 right-4">✕</button>
         </div>

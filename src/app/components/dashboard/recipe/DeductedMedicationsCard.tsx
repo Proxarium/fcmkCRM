@@ -66,18 +66,18 @@ const DeductedMedicationsCard = () => {
     <div className="px-2 pt-5 bg-neutral-900 rounded-lg ring-1">
       <div className="flex items-center justify-between px-3 ">
         <div className="flex flex-col">
-      <h1 className=" text-xl font-bold  text-white">Рецепты</h1>
+      <h1 className=" text-xl font-bold  text-white">Рецепты - {deductions.length}</h1>
       <span className="text-xs text-neutral-500">линейных укладок</span>
       </div>
       <img src="/medicalKit.png" alt='recipe' className="w-12 h-12"/>
       </div>
-      <div className="flex flex-col space-y-2 h-[180px] overflow-y-auto no-scrollbar pt-2 px-0.5">
+      <div className="flex flex-col space-y-2 max-h-[180px] overflow-y-auto no-scrollbar pt-2 px-0.5">
       {deductions.map((deduction) => (
         <Card
           key={deduction.id}
           // imageSrc="/recept.png" // Replace with your image path
-          subtitle={`Рецепт от ${new Date(deduction.deductionDate).toLocaleString()}`}
-          description={` ${deduction.medicalKit.name}`}
+          subtitle={` ${deduction.medicalKit.name}`}
+          description={`Рецепт от ${new Date(deduction.deductionDate).toLocaleString()}`}
           title={` ${deduction.user.username}`}
           onClick={() => openModal(deduction)}
         />
